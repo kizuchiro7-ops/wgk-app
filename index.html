@@ -1095,18 +1095,19 @@ nav::-webkit-scrollbar { display: none; }
       </div>
     </div>
     <div class="video-card" data-vcat="eye">
-      <div class="video-thumb-wrap">
-        <div class="video-thumb-placeholder">
-          <span class="video-play-icon">▶</span>
-          <span class="video-thumb-label">動画リンクを設定してください</span>
+      <div class="video-thumb-wrap yt-lite" data-videoid="yEDfTrxST5c" data-title="前庭動眼反射（VOR）トレーニング" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/yEDfTrxST5c/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/yEDfTrxST5c/mqdefault.jpg'" alt="前庭動眼反射（VOR）トレーニング" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
         </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.55));font-size:11px;color:#fff;line-height:1.4;">前庭動眼反射（VOR）トレーニング</div>
       </div>
       <div class="video-info">
         <div class="video-badge badge-eye">目・視覚</div>
-        <div class="video-title">VOR（前庭動眼反射）トレーニング</div>
-        <div class="video-desc">親指を見たまま顔だけを左右・上下に振る。車酔い改善にも効果的。猫背NG。</div>
+        <div class="video-title">前庭動眼反射（VOR：Vestibulo-Ocular Reflex）</div>
+        <div class="video-desc">頭部（または体）が動いたとき、目の位置を固定することで見ている対象をブレずに捉え続けるための反射。親指を見たまま顔だけを左右・上下に振る。車酔い改善にも効果的。猫背NG。</div>
         <div class="video-ref">📖 講座6 ▶ 33:21〜</div>
-        <a class="video-link-btn" href="https://www.youtube.com/@WalkingGrowthKidsAcademy" target="_blank">YouTubeチャンネルを開く ↗</a>
+        <a class="video-link-btn" href="https://youtube.com/shorts/yEDfTrxST5c" target="_blank">YouTubeで開く ↗</a>
       </div>
     </div>
 
@@ -1216,6 +1217,17 @@ nav::-webkit-scrollbar { display: none; }
     <textarea class="memo-area" id="next" placeholder="例：次はビー玉を使ってみる。バランスディスクを購入したい。" style="min-height:60px"></textarea>
   </div>
 
+  <div class="record-section">
+    <div class="section-title">📹 Googleフォト 動画リンク</div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">Googleフォトで動画を開く → 「共有」→「リンクをコピー」して貼り付けてください</div>
+    <input class="field-input" type="url" id="videoLink" placeholder="https://photos.google.com/..." style="width:100%;">
+    <div id="video-preview" style="margin-top:8px;display:none;">
+      <a id="video-link-anchor" href="" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#0f7a5a;font-weight:500;text-decoration:none;padding:7px 12px;border:1px solid #0f7a5a;border-radius:8px;">
+        📹 動画を開く ↗
+      </a>
+    </div>
+  </div>
+
   <div class="save-row">
     <button class="btn-save" onclick="saveRecord()">この記録を保存する</button>
     <button class="btn-clear" onclick="clearForm()">クリア</button>
@@ -1281,7 +1293,8 @@ function saveRecord() {
     symptom: starState.symptom || 0,
     walk: starState.walk || 0,
     memo: document.getElementById('memo').value,
-    next: document.getElementById('next').value
+    next: document.getElementById('next').value,
+    videoLink: document.getElementById('videoLink').value
   };
   const records = JSON.parse(localStorage.getItem('wgk_records') || '[]');
   records.unshift(entry);
@@ -1300,6 +1313,8 @@ function clearForm() {
   document.getElementById('next').value = '';
   document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('on'));
   Object.keys(starState).forEach(k => delete starState[k]);
+  document.getElementById('videoLink').value = '';
+  document.getElementById('video-preview').style.display = 'none';
   document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
 }
 
@@ -1328,7 +1343,7 @@ function renderSaved() {
           ${[evalLabel('機嫌',r.mood),evalLabel('やる気',r.effort),evalLabel('ワーク出来',r.skill),evalLabel('症状変化',r.symptom),evalLabel('姿勢変化',r.walk)].filter(Boolean).join('　')}
         </span><br>
         ${r.memo ? '<span style="color:var(--text2);font-size:12px;">📝 '+r.memo+'</span><br>' : ''}
-        ${r.next ? '<span style="color:var(--text3);font-size:11px;">➡ 次回：'+r.next+'</span>' : ''}
+        ${r.next ? '<span style="color:var(--text3);font-size:11px;">➡ 次回：'+r.next+'</span><br>' : ''}        ${r.videoLink ? '<a href="'+r.videoLink+'" target="_blank" style="font-size:11px;color:#0f7a5a;font-weight:500;">📹 動画を見る ↗</a>' : ''}
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
         <button class="del-btn" onclick="deleteRecord(${r.id})" title="削除">✕</button>
@@ -1400,6 +1415,19 @@ function filterVideo(cat, btn) {
 // ── init ──
 document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
 renderSaved();
+
+// Video link live preview
+document.getElementById('videoLink').addEventListener('input', function() {
+  const val = this.value.trim();
+  const preview = document.getElementById('video-preview');
+  const anchor = document.getElementById('video-link-anchor');
+  if (val.startsWith('http')) {
+    preview.style.display = 'block';
+    anchor.href = val;
+  } else {
+    preview.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>
