@@ -262,16 +262,25 @@ nav::-webkit-scrollbar { display: none; }
 .check-item input:checked + .check-box::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
 .check-label { font-size: 12px; color: var(--text2); }
 
-.eval-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.eval-name { font-size: 12px; color: var(--text); min-width: 110px; }
-.eval-stars { display: flex; gap: 4px; }
+.eval-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.eval-name { font-size: 12px; color: var(--text); min-width: 180px; }
+.eval-stars { display: flex; gap: 6px; align-items: center; }
 .star-btn {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--bg2);
-  cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center;
-  transition: all .12s; color: var(--text3);
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--bg2);
+  cursor: pointer; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; color: var(--text3);
+  flex-shrink: 0;
 }
-.star-btn.on { background: var(--amber-light); border-color: #e8a000; color: #7a4d0a; }
+.star-btn:hover { border-color: var(--teal); color: var(--teal); }
+.star-btn.on { border-color: transparent; color: #fff; }
+.star-btn.on[data-val="1"] { background: #e05c3a; }
+.star-btn.on[data-val="2"] { background: #e8934a; }
+.star-btn.on[data-val="3"] { background: #e8c040; color: #7a4d0a !important; }
+.star-btn.on[data-val="4"] { background: #6db56d; }
+.star-btn.on[data-val="5"] { background: #0f7a5a; }
+.vas-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-top: 2px; padding: 0 2px; }
 
 .memo-area {
   width: 100%; min-height: 80px; padding: 10px;
@@ -1157,46 +1166,41 @@ nav::-webkit-scrollbar { display: none; }
   </div>
 
   <div class="record-section">
-    <div class="section-title">子どもの様子（3段階評価　😐 → 🙂 → 😄）</div>
+    <div class="section-title">子どもの様子（VAS 5段階評価：1=イマイチ ／ 5=最高！）</div>
     <div id="eval-rows">
       <div class="eval-row">
         <span class="eval-name">①機嫌・笑顔</span>
-        <div class="eval-stars" data-key="mood">
-          <button class="star-btn" onclick="setStar(this,'mood',1)">😐</button>
-          <button class="star-btn" onclick="setStar(this,'mood',2)">🙂</button>
-          <button class="star-btn" onclick="setStar(this,'mood',3)">😄</button>
+        <div>
+          <div class="eval-stars" data-key="mood"><button class="star-btn" data-val="1" onclick="setStar(this,'mood',1)">1</button><button class="star-btn" data-val="2" onclick="setStar(this,'mood',2)">2</button><button class="star-btn" data-val="3" onclick="setStar(this,'mood',3)">3</button><button class="star-btn" data-val="4" onclick="setStar(this,'mood',4)">4</button><button class="star-btn" data-val="5" onclick="setStar(this,'mood',5)">5</button></div>
+          <div class="vas-labels"><span>イマイチ</span><span>最高！</span></div>
         </div>
       </div>
       <div class="eval-row">
         <span class="eval-name">②ワークの取り組み（やる気）</span>
-        <div class="eval-stars" data-key="effort">
-          <button class="star-btn" onclick="setStar(this,'effort',1)">😐</button>
-          <button class="star-btn" onclick="setStar(this,'effort',2)">🙂</button>
-          <button class="star-btn" onclick="setStar(this,'effort',3)">😄</button>
+        <div>
+          <div class="eval-stars" data-key="effort"><button class="star-btn" data-val="1" onclick="setStar(this,'effort',1)">1</button><button class="star-btn" data-val="2" onclick="setStar(this,'effort',2)">2</button><button class="star-btn" data-val="3" onclick="setStar(this,'effort',3)">3</button><button class="star-btn" data-val="4" onclick="setStar(this,'effort',4)">4</button><button class="star-btn" data-val="5" onclick="setStar(this,'effort',5)">5</button></div>
+          <div class="vas-labels"><span>イマイチ</span><span>最高！</span></div>
         </div>
       </div>
       <div class="eval-row">
         <span class="eval-name">③ワークの出来（上手くできたか）</span>
-        <div class="eval-stars" data-key="skill">
-          <button class="star-btn" onclick="setStar(this,'skill',1)">😐</button>
-          <button class="star-btn" onclick="setStar(this,'skill',2)">🙂</button>
-          <button class="star-btn" onclick="setStar(this,'skill',3)">😄</button>
+        <div>
+          <div class="eval-stars" data-key="skill"><button class="star-btn" data-val="1" onclick="setStar(this,'skill',1)">1</button><button class="star-btn" data-val="2" onclick="setStar(this,'skill',2)">2</button><button class="star-btn" data-val="3" onclick="setStar(this,'skill',3)">3</button><button class="star-btn" data-val="4" onclick="setStar(this,'skill',4)">4</button><button class="star-btn" data-val="5" onclick="setStar(this,'skill',5)">5</button></div>
+          <div class="vas-labels"><span>イマイチ</span><span>最高！</span></div>
         </div>
       </div>
       <div class="eval-row">
         <span class="eval-name">④症状やお悩みの変化</span>
-        <div class="eval-stars" data-key="symptom">
-          <button class="star-btn" onclick="setStar(this,'symptom',1)">😐</button>
-          <button class="star-btn" onclick="setStar(this,'symptom',2)">🙂</button>
-          <button class="star-btn" onclick="setStar(this,'symptom',3)">😄</button>
+        <div>
+          <div class="eval-stars" data-key="symptom"><button class="star-btn" data-val="1" onclick="setStar(this,'symptom',1)">1</button><button class="star-btn" data-val="2" onclick="setStar(this,'symptom',2)">2</button><button class="star-btn" data-val="3" onclick="setStar(this,'symptom',3)">3</button><button class="star-btn" data-val="4" onclick="setStar(this,'symptom',4)">4</button><button class="star-btn" data-val="5" onclick="setStar(this,'symptom',5)">5</button></div>
+          <div class="vas-labels"><span>イマイチ</span><span>最高！</span></div>
         </div>
       </div>
       <div class="eval-row">
         <span class="eval-name">⑤姿勢や歩き方の変化</span>
-        <div class="eval-stars" data-key="walk">
-          <button class="star-btn" onclick="setStar(this,'walk',1)">😐</button>
-          <button class="star-btn" onclick="setStar(this,'walk',2)">🙂</button>
-          <button class="star-btn" onclick="setStar(this,'walk',3)">😄</button>
+        <div>
+          <div class="eval-stars" data-key="walk"><button class="star-btn" data-val="1" onclick="setStar(this,'walk',1)">1</button><button class="star-btn" data-val="2" onclick="setStar(this,'walk',2)">2</button><button class="star-btn" data-val="3" onclick="setStar(this,'walk',3)">3</button><button class="star-btn" data-val="4" onclick="setStar(this,'walk',4)">4</button><button class="star-btn" data-val="5" onclick="setStar(this,'walk',5)">5</button></div>
+          <div class="vas-labels"><span>イマイチ</span><span>最高！</span></div>
         </div>
       </div>
     </div>
@@ -1255,8 +1259,9 @@ const starState = {};
 function setStar(btn, key, val) {
   starState[key] = val;
   const row = btn.closest('.eval-stars');
-  row.querySelectorAll('.star-btn').forEach((b, i) => {
-    b.classList.toggle('on', i < val);
+  row.querySelectorAll('.star-btn').forEach(b => {
+    const bVal = parseInt(b.dataset.val);
+    b.classList.toggle('on', bVal === val);
   });
 }
 
@@ -1312,7 +1317,7 @@ function renderSaved() {
     return;
   }
   const em = ['','😐','🙂','😄'];
-  const evalLabel = (label, val) => val ? label+': '+em[val] : '';
+  const evalLabel = (label, val) => val ? label+': '+val+'／5' : '';
   container.innerHTML = records.map(r => `
     <div class="saved-entry">
       <div class="saved-summary">
