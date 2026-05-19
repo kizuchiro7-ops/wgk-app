@@ -377,6 +377,34 @@ nav::-webkit-scrollbar { display: none; }
   width: 100% !important; height: 100% !important;
   object-fit: cover !important;
 }
+
+/* ── PRO TAB ── */
+.nav-tab-pro { background: #f0eef8 !important; color: #4a3fba !important; border: 1px solid #c5c0f0; }
+.nav-tab-pro.unlocked { background: #4a3fba !important; color: #fff !important; border-color: #4a3fba; }
+#tab-pro .page-header h1 { color: #4a3fba; }
+.pro-gate {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(247,245,240,0.97); z-index: 8000;
+  display: flex; align-items: center; justify-content: center;
+}
+.pro-gate-box {
+  background: #fff; border-radius: 16px; padding: 32px 28px;
+  width: 90%; max-width: 340px; box-shadow: 0 4px 24px rgba(0,0,0,.1);
+  text-align: center;
+}
+.pro-phase { background: #f0eef8; border-radius: 12px; padding: 2px 10px; display: inline-block; font-size: 10px; font-weight: 700; color: #4a3fba; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+.pro-lesson-card { background: var(--bg2); border: 1px solid #e0dcf5; border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; cursor: pointer; transition: box-shadow .15s; }
+.pro-lesson-card:hover { box-shadow: 0 2px 12px rgba(74,63,186,.1); }
+.pro-lesson-header { display: flex; align-items: center; gap: 12px; padding: 13px 16px; }
+.pro-lesson-num { width: 30px; height: 30px; border-radius: 50%; background: #f0eef8; color: #4a3fba; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pro-lesson-title { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+.pro-chevron { font-size: 18px; color: var(--text3); transition: transform .2s; }
+.pro-lesson-card.open .pro-chevron { transform: rotate(180deg); }
+.pro-lesson-body { display: none; padding: 0 16px 16px; border-top: 1px solid #e0dcf5; }
+.pro-lesson-card.open .pro-lesson-body { display: block; }
+.pro-tag { font-size: 10px; padding: 2px 7px; border-radius: 20px; font-weight: 500; background: #f0eef8; color: #4a3fba; }
+.pro-tag-key { background: #faece7; color: #993C1D; }
+.pro-tag-work { background: #E1F5EE; color: #0F6E56; }
 </style>
 </head>
 <body>
@@ -457,6 +485,7 @@ nav::-webkit-scrollbar { display: none; }
     <button class="nav-tab" onclick="showTab('check',this)">症状チェック</button>
     <button class="nav-tab" onclick="showTab('video',this)">実践動画</button>
     <button class="nav-tab" onclick="showTab('record',this)">実践記録</button>
+    <button class="nav-tab nav-tab-pro" onclick="showProTab(this)" id="pro-tab-btn">🔒 プロコース</button>
   </nav>
 </header>
 
@@ -1415,6 +1444,52 @@ function filterVideo(cat, btn) {
   });
 }
 
+
+// ── PRO TAB PASSWORD ──
+const PRO_PASSWORD = 'WGKPRO2026';
+const PRO_KEY = 'wgk_pro_auth';
+
+function checkProPw() {
+  const val = document.getElementById('pro-pw-input').value;
+  if (val === PRO_PASSWORD) {
+    sessionStorage.setItem(PRO_KEY, '1');
+    document.getElementById('pro-gate-overlay').style.display = 'none';
+    document.getElementById('pro-tab-btn').classList.add('unlocked');
+    document.getElementById('pro-tab-btn').textContent = '⭐ プロコース';
+  } else {
+    document.getElementById('pro-pw-error').textContent = 'パスワードが違います。もう一度お試しください。';
+    document.getElementById('pro-pw-input').value = '';
+  }
+}
+
+function showProTab(btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-pro').classList.add('active');
+  btn.classList.add('active');
+  if (sessionStorage.getItem(PRO_KEY) !== '1') {
+    document.getElementById('pro-gate-overlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('pro-pw-input').focus(), 100);
+  } else {
+    document.getElementById('pro-gate-overlay').style.display = 'none';
+  }
+}
+
+function toggleProCard(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.pro-lesson-card.open').forEach(c => { if(c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !isOpen);
+}
+
+// Auto-unlock if already authenticated
+if (sessionStorage.getItem(PRO_KEY) === '1') {
+  const proBtn = document.getElementById('pro-tab-btn');
+  if (proBtn) {
+    proBtn.classList.add('unlocked');
+    proBtn.textContent = '⭐ プロコース';
+  }
+}
+
 // ── init ──
 document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
 renderSaved();
@@ -1432,5 +1507,196 @@ document.getElementById('videoLink').addEventListener('input', function() {
   }
 });
 </script>
+
+<!-- ════════════════ TAB 5: PRO ════════════════ -->
+<section class="section" id="tab-pro">
+  <div id="pro-gate-overlay" class="pro-gate">
+    <div class="pro-gate-box">
+      <div class="pro-phase">Pro Course</div>
+      <div style="font-size:22px;margin-bottom:8px;">🔒</div>
+      <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:6px;">プロコース専用ページ</div>
+      <div style="font-size:12px;color:#9a9790;margin-bottom:20px;">プロコース受講生のみアクセスできます</div>
+      <input type="password" id="pro-pw-input" placeholder="プロコースパスワードを入力"
+        style="width:100%;padding:11px 13px;border:1px solid #c5c0f0;border-radius:10px;font-size:13px;font-family:inherit;color:#1a1917;outline:none;box-sizing:border-box;margin-bottom:8px;"
+        onkeydown="if(event.key==='Enter')checkProPw()">
+      <div id="pro-pw-error" style="font-size:11px;color:#993C1D;min-height:16px;margin-bottom:8px;"></div>
+      <button onclick="checkProPw()"
+        style="width:100%;padding:11px;background:#4a3fba;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;">
+        プロコースを開く
+      </button>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1>プロコース 講座マップ</h1>
+    <p>各講座をタップしてタイムスタンプ（動画しおり）を確認できます。<span style="color:var(--teal);font-weight:500">緑 = 統合ワーク</span></p>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-block">
+    <div class="phase-label" style="color:#4a3fba;">Phase 1 &mdash; 歩行分析・TLR・距骨アプローチ</div>
+
+    <div class="pro-lesson-card" onclick="toggleProCard(this)">
+      <div class="pro-lesson-header">
+        <div class="pro-lesson-num">1</div>
+        <div class="pro-lesson-title">
+          つま先歩き・シーバー病・TLR・距骨アプローチ
+          <div class="lesson-tags" style="margin-top:4px;">
+            <span class="pro-tag">症例解説</span>
+            <span class="pro-tag pro-tag-work">統合ワーク</span>
+            <span class="pro-tag pro-tag-key">距骨・筋肉ケア</span>
+          </div>
+        </div>
+        <span class="pro-chevron">&#8964;</span>
+      </div>
+      <div class="pro-lesson-body">
+        <div class="tl-item"><span class="ts">02:21</span><span class="tl-text"><strong>歩行分析の基本</strong>：上半身（顔・肩・腕）・下半身（骨盤・膝・足首）のチェックポイント</span></div>
+        <div class="tl-item"><span class="ts">09:05</span><span class="tl-text"><strong>症例：9歳男の子</strong>：シーバー病＋つま先歩き。問診からTLR残存を推測するプロセス</span></div>
+        <div class="tl-item"><span class="ts">11:11</span><span class="tl-text"><strong>TLR（緊張性迷路反射）</strong>：耳石器が重力を感知→屈曲・伸展優位の姿勢が生まれるメカニズム</span></div>
+        <div class="tl-item"><span class="ts">14:43</span><span class="tl-text"><strong>つま先歩きとの関連</strong>：伸展側TLRでふくらはぎにロック→かかとに力が入らない</span></div>
+        <div class="tl-item"><span class="ts">15:23</span><span class="tl-text"><strong>前庭感覚の統合ワーク</strong>：回転椅子・バランスディスク。めまい時はかかとをドンドン<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">27:30</span><span class="tl-text"><strong>足首背屈角度の評価</strong>：平均+12.8度。腓腹筋（膝伸ばし）とヒラメ筋（膝曲げ）の違い</span></div>
+        <div class="tl-item"><span class="ts">39:36</span><span class="tl-text"><strong>距骨の前方変位</strong>：長期つま先歩きで距骨が前方に固まり背屈制限が起きるメカニズム</span></div>
+        <div class="tl-item"><span class="ts">40:02</span><span class="tl-text"><strong>距骨の押し込みワーク</strong>：クラウチング姿勢で距骨を押さえながら体重を前にかける<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">49:03</span><span class="tl-text"><strong>拮抗筋の活用</strong>：前脛骨筋を収縮させて相反神経支配でふくらはぎを緩める<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">01:17:00</span><span class="tl-text"><strong>股関節の分離運動</strong>：骨盤固定のまま股関節だけで足を上げる練習<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">01:20:12</span><span class="tl-text"><strong>臀筋スクワット</strong>：股関節から曲げてお尻を後ろに引く。ハムストリングスの過緊張を打ち消す<span class="work-pill">ワーク</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-block">
+    <div class="phase-label" style="color:#4a3fba;">Phase 2 &mdash; 脳のXライン・外反扁平足・靴選び</div>
+
+    <div class="pro-lesson-card" onclick="toggleProCard(this)">
+      <div class="pro-lesson-header">
+        <div class="pro-lesson-num">2</div>
+        <div class="pro-lesson-title">
+          脳のXライン評価・外反扁平足・靴選びステップ・SIDS
+          <div class="lesson-tags" style="margin-top:4px;">
+            <span class="pro-tag">Xライン評価</span>
+            <span class="pro-tag pro-tag-key">靴選び実践</span>
+            <span class="pro-tag">SIDS・睡眠環境</span>
+          </div>
+        </div>
+        <span class="pro-chevron">&#8964;</span>
+      </div>
+      <div class="pro-lesson-body">
+        <div class="tl-item"><span class="ts">07:16</span><span class="tl-text"><strong>症例続き：歩行・足踏み分析</strong>：左肩下がり・左腕固定。50歩で大きく左回転→ATNRの残存を疑う</span></div>
+        <div class="tl-item"><span class="ts">32:52</span><span class="tl-text"><strong>Xラインの評価</strong>：左の寄り目できない＋左足踏みで回転→左の小脳・中脳 or 右大脳の機能低下</span></div>
+        <div class="tl-item"><span class="ts">40:54</span><span class="tl-text"><strong>サッケード運動</strong>：右斜め上を見続けることで右脳を活性化するトレーニング<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">15:03</span><span class="tl-text"><strong>視力低下（近視）</strong>：眼軸延長（ハード）＋毛様体筋緊張（ソフト）の2層アプローチ</span></div>
+        <div class="tl-item"><span class="ts">53:48</span><span class="tl-text"><strong>外反扁平足の原因</strong>：内在筋未発達・体幹の弱さ・靴の不適合。3〜6歳の扁平足は正常</span></div>
+        <div class="tl-item"><span class="ts">57:50</span><span class="tl-text"><strong>高クッションシューズの弊害</strong>：固有受容感覚が届かず内在筋が育たない。アーチが作られない</span></div>
+        <div class="tl-item"><span class="ts">01:04:17</span><span class="tl-text"><strong>靴選びの2ステップ</strong>：①守りの靴（かかと安定：NB・ASICS）→②攻めの靴（ベアフット：サグアロ）</span></div>
+        <div class="tl-item"><span class="ts">01:06:10</span><span class="tl-text"><strong>草履保育の注意点</strong>：かかと保護なし→アーチ未完成時期の長時間使用は外反扁平足を助長</span></div>
+        <div class="tl-item"><span class="ts">01:26:42</span><span class="tl-text"><strong>SIDS（乳幼児突然死）</strong>：仰向け寝が鉄則。柔らかいマット・おくるみ・受動喫煙は大きなリスク</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-block">
+    <div class="phase-label" style="color:#4a3fba;">Phase 3 &mdash; 側弯症・帝王切開・低緊張ケア</div>
+
+    <div class="pro-lesson-card" onclick="toggleProCard(this)">
+      <div class="pro-lesson-header">
+        <div class="pro-lesson-num">3</div>
+        <div class="pro-lesson-title">
+          側弯症・カテコールアミン・低緊張（ハイポトニア）・夜尿症
+          <div class="lesson-tags" style="margin-top:4px;">
+            <span class="pro-tag">症例：側弯症</span>
+            <span class="pro-tag pro-tag-key">帝王切開と反射</span>
+            <span class="pro-tag pro-tag-work">低緊張ケア</span>
+          </div>
+        </div>
+        <span class="pro-chevron">&#8964;</span>
+      </div>
+      <div class="pro-lesson-body">
+        <div class="tl-item"><span class="ts">01:48</span><span class="tl-text"><strong>寄り目と舌の評価</strong>：舌が左に曲がる→左側から押し出す力が弱い（左延髄・中脳の機能低下）</span></div>
+        <div class="tl-item"><span class="ts">11:08</span><span class="tl-text"><strong>総合的な脳の判断</strong>：寄り目・片足立ち・舌の方向が重なる側へアプローチを優先する</span></div>
+        <div class="tl-item"><span class="ts">04:36</span><span class="tl-text"><strong>症例：9歳女子（側弯症）</strong>：帝王切開・鉄棒苦手・過敏。左足片足立ち苦手→左小脳へアプローチ</span></div>
+        <div class="tl-item"><span class="ts">20:03</span><span class="tl-text"><strong>夜尿症の根本原因</strong>：ガラント反射残存・口呼吸（ANP増加）・就寝前スマホ（ADH不足）</span></div>
+        <div class="tl-item"><span class="ts">30:18</span><span class="tl-text"><strong>ポリヴェーガル理論</strong>：ハミング呼吸で迷走神経を刺激→副交感神経ON→夜尿症改善<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">17:19</span><span class="tl-text"><strong>カテコールアミンのサージ</strong>：自然分娩のストレスで一生最大のホルモン放出→覚醒スイッチ。帝王切開ではこれが起きにくい</span></div>
+        <div class="tl-item"><span class="ts">43:44</span><span class="tl-text"><strong>低緊張（ハイポトニア）のサイン</strong>：W座り・関節過伸展・よだれ多い。丸まる体験不足が一因</span></div>
+        <div class="tl-item"><span class="ts">50:33</span><span class="tl-text"><strong>低緊張へのアプローチ</strong>：不安定な環境（バランスボール）での遊び＋関節への圧迫・タッピング刺激<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">01:31:47</span><span class="tl-text"><strong>まるまる抱っこの使い分け</strong>：首すわり前はメリット大。9ヶ月以降は抗重力筋発達を阻害するためNG</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-block">
+    <div class="phase-label" style="color:#4a3fba;">Phase 4 &mdash; ストレートネック・ハムストリングス・内股</div>
+
+    <div class="pro-lesson-card" onclick="toggleProCard(this)">
+      <div class="pro-lesson-header">
+        <div class="pro-lesson-num">4</div>
+        <div class="pro-lesson-title">
+          ストレートネック・ハムストリングスストレッチ・TLR深掘り・内股の原因
+          <div class="lesson-tags" style="margin-top:4px;">
+            <span class="pro-tag pro-tag-work">実践ワーク多数</span>
+            <span class="pro-tag pro-tag-key">TLRと姿勢反射</span>
+            <span class="pro-tag">症例1ヶ月後経過</span>
+          </div>
+        </div>
+        <span class="pro-chevron">&#8964;</span>
+      </div>
+      <div class="pro-lesson-body">
+        <div class="tl-item"><span class="ts">01:37</span><span class="tl-text"><strong>ストレートネック修正ワーク</strong>：首を縦に伸ばしながら後ろへ。7個の骨全体をしならせる<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">13:35</span><span class="tl-text"><strong>症例1ヶ月後の経過</strong>：左足スクワット＋バランスディスクで左肩下がり改善・寄り目改善・足踏みテスト合格</span></div>
+        <div class="tl-item"><span class="ts">15:56</span><span class="tl-text"><strong>ハムストリングスストレッチ</strong>：骨盤を後傾させず「股関節から格納する」感覚で太もも裏を伸ばす<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">25:08</span><span class="tl-text"><strong>バスタオルを使った骨盤立て</strong>：お尻の下に敷くだけで自然と骨盤が立ちやすくなる<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">37:38</span><span class="tl-text"><strong>内股改善の応用ストレッチ</strong>：かかとをクロスさせ少し内股でお尻を引く→外側〜裏側を強力にストレッチ<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">43:25</span><span class="tl-text"><strong>TLRが3歳まで残る理由</strong>：二本足歩行という高度な姿勢制御のベースとして最後まで必要</span></div>
+        <div class="tl-item"><span class="ts">52:38</span><span class="tl-text"><strong>姿勢反射（立ち直り反射・パラシュート）</strong>：原始反射と異なり一生涯続く「獲得すべき」反射</span></div>
+        <div class="tl-item"><span class="ts">54:43</span><span class="tl-text"><strong>原始反射と姿勢反射の入れ替わり</strong>：TLRが統合されて初めて立ち直り反射が獲得される</span></div>
+        <div class="tl-item"><span class="ts">01:11:04</span><span class="tl-text"><strong>大腿骨前捻角</strong>：ハイハイ不足で股関節のねじれが治らず内股に。女の子に多い理由</span></div>
+        <div class="tl-item"><span class="ts">01:21:50</span><span class="tl-text"><strong>年齢別：よく転ぶ原因</strong>：0〜2歳は正常。3〜5歳は反射残存。6〜9歳は足首硬さ。10歳〜はスマホ依存</span></div>
+        <div class="tl-item"><span class="ts">01:34:10</span><span class="tl-text"><strong>保育現場でできること</strong>：雑巾がけ（膝浮かせ）がハイハイ不足の補完として非常に有効</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase-block">
+    <div class="phase-label" style="color:#4a3fba;">Phase 5 &mdash; つま先歩きの本質・TLRの深いメカニズム</div>
+
+    <div class="pro-lesson-card" onclick="toggleProCard(this)">
+      <div class="pro-lesson-header">
+        <div class="pro-lesson-num">5</div>
+        <div class="pro-lesson-title">
+          つま先歩きの文化的背景・TLRドミノ効果・VOR・解決の3ステップ
+          <div class="lesson-tags" style="margin-top:4px;">
+            <span class="pro-tag">最終まとめ</span>
+            <span class="pro-tag pro-tag-key">TLR深いメカニズム</span>
+            <span class="pro-tag pro-tag-work">VOR統合</span>
+          </div>
+        </div>
+        <span class="pro-chevron">&#8964;</span>
+      </div>
+      <div class="pro-lesson-body">
+        <div class="tl-item"><span class="ts">03:47</span><span class="tl-text"><strong>日本人の歩行の特徴</strong>：名古屋大研究→ストライドが狭くピッチが多いちょこちょこ歩き</span></div>
+        <div class="tl-item"><span class="ts">06:05</span><span class="tl-text"><strong>つま先歩きの環境的原因</strong>：高クッション靴・平坦な道・ハイハイ不足・日本の床座り文化</span></div>
+        <div class="tl-item"><span class="ts">07:26</span><span class="tl-text"><strong>陽性支持反射の影響</strong>：足裏接地を危険と認識→伸筋群が同時収縮→突っ張り歩きに</span></div>
+        <div class="tl-item"><span class="ts">09:16</span><span class="tl-text"><strong>ASD（自閉症スペクトラム）との関連</strong>：感覚過敏による接地面積最小化・自己刺激行動として約27.3%に見られる</span></div>
+        <div class="tl-item"><span class="ts">12:05</span><span class="tl-text"><strong>感覚入力のコツ</strong>：触覚過敏の子には「深部圧（かかとで強く押す）」で安心感を与える<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">14:03</span><span class="tl-text"><strong>ストレッチの注意点</strong>：緊張状態で無理に伸ばすと逆効果。アクティブに自力で動かすことが重要</span></div>
+        <div class="tl-item"><span class="ts">01:24:52</span><span class="tl-text"><strong>TLRのドミノ効果</strong>：頭が後傾→耳石器感知→脳幹から「伸筋を最大出力で固めろ」→反張膝・骨盤前傾・つま先立ち</span></div>
+        <div class="tl-item"><span class="ts">01:26:13</span><span class="tl-text"><strong>アキレス腱の構造変化</strong>：長期のつま先歩きで骨の成長に筋肉が追いつかず→背屈制限が定着</span></div>
+        <div class="tl-item"><span class="ts">01:00:31</span><span class="tl-text"><strong>TLRの評価</strong>：上を向いた時に体全体が後ろに倒れる・腰が異常に反る場合は残存の疑い</span></div>
+        <div class="tl-item"><span class="ts">01:28:27</span><span class="tl-text"><strong>解決の3ステップ</strong>：①低重心での安全な評価→②VORトレーニング（頭が動いても安全と脳に教える）→③薄底靴で足裏入力強化<span class="work-pill">ワーク</span></span></div>
+        <div class="tl-item"><span class="ts">01:45:33</span><span class="tl-text"><strong>授業中に足踏みする子</strong>：固有受容覚で脳幹を落ち着かせようとしている無意識行動。スクイーズや足元に踏むものを代替として使用</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint-box">
+    <strong>プロコース活用ヒント：</strong>症例の流れ（問診→評価→仮説→アプローチ）を意識しながら復習すると、臨床での実践力が身につきます。
+  </div>
+</section>
+
 </body>
 </html>
