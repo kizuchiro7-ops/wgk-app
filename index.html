@@ -487,6 +487,7 @@ nav::-webkit-scrollbar { display: none; }
     <button class="nav-tab" onclick="showTab('video',this)">実践動画</button>
     <button class="nav-tab" onclick="showTab('record',this)">実践記録</button>
     <button class="nav-tab nav-tab-pro" onclick="showProTab(this)" id="pro-tab-btn">🔒 プロコース</button>
+    <button class="nav-tab nav-tab-pro" onclick="showProArchiveTab(this)" id="pro-archive-tab-btn">🔒 Proアーカイブ</button>
   </nav>
 </header>
 
@@ -664,6 +665,128 @@ nav::-webkit-scrollbar { display: none; }
 
   <div class="hint-box" style="margin-top:1.5rem">
     <strong>活用ヒント：</strong>「講座マップ」タブでタイムスタンプを確認してから該当の動画を開くと、ポイントを絞って効率よく復習できます。
+  </div>
+</section>
+
+<!-- ════════════════ TAB: PRO ARCHIVE ════════════════ -->
+<section class="section" id="tab-pro-archive">
+  <div id="pro-archive-gate" class="pro-gate">
+    <div class="pro-gate-box">
+      <div class="pro-phase">Pro Course</div>
+      <div style="font-size:22px;margin-bottom:8px;">🔒</div>
+      <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:6px;">プロコース専用アーカイブ</div>
+      <div style="font-size:12px;color:#9a9790;margin-bottom:20px;">プロコース受講生のみアクセスできます</div>
+      <input type="password" id="pro-archive-pw-input" placeholder="プロコースパスワードを入力"
+        style="width:100%;padding:11px 13px;border:1px solid #c5c0f0;border-radius:10px;font-size:13px;font-family:inherit;color:#1a1917;outline:none;box-sizing:border-box;margin-bottom:8px;"
+        onkeydown="if(event.key==='Enter')checkProArchivePw()">
+      <div id="pro-archive-pw-error" style="font-size:11px;color:#993C1D;min-height:16px;margin-bottom:8px;"></div>
+      <button onclick="checkProArchivePw()"
+        style="width:100%;padding:11px;background:#4a3fba;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;">
+        プロアーカイブを開く
+      </button>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1 style="color:#4a3fba;">プロコース アーカイブ動画</h1>
+    <p>プロコース全5回の講座アーカイブです。プロコース講座マップのタイムスタンプと合わせてご活用ください。</p>
+  </div>
+
+  <div class="video-grid">
+    <div class="video-card" data-vcat="pro-archive">
+      <div class="video-thumb-wrap yt-lite" data-videoid="2OPdsa1EJKU" data-title="20260308 プロコース講義１アーカイブ" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/2OPdsa1EJKU/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2OPdsa1EJKU/mqdefault.jpg'" alt="20260308 プロコース講義１アーカイブ" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;top:8px;left:8px;background:rgba(74,63,186,0.9);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">Pro講義１</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));font-size:11px;color:#fff;line-height:1.4;">20260308 プロコース講義１アーカイブ</div>
+      </div>
+      <div class="video-info">
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <div class="video-badge" style="background:#f0eef8;color:#4a3fba;">Pro講義１</div>
+          <div style="font-size:10px;color:var(--text3);padding-top:3px;">2026年03月08日収録</div>
+        </div>
+        <div class="video-title">子どもの歩き方と発育の学校　プロコース講義１アーカイブ</div>
+        <a class="video-link-btn" href="https://youtu.be/2OPdsa1EJKU" target="_blank" style="background:#4a3fba;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" data-vcat="pro-archive">
+      <div class="video-thumb-wrap yt-lite" data-videoid="MZKT0wd3IGg" data-title="20260325 プロコース講義２アーカイブ" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/MZKT0wd3IGg/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/MZKT0wd3IGg/mqdefault.jpg'" alt="20260325 プロコース講義２アーカイブ" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;top:8px;left:8px;background:rgba(74,63,186,0.9);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">Pro講義２</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));font-size:11px;color:#fff;line-height:1.4;">20260325 プロコース講義２アーカイブ</div>
+      </div>
+      <div class="video-info">
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <div class="video-badge" style="background:#f0eef8;color:#4a3fba;">Pro講義２</div>
+          <div style="font-size:10px;color:var(--text3);padding-top:3px;">2026年03月25日収録</div>
+        </div>
+        <div class="video-title">子どもの歩き方と発育の学校　プロコース講義２アーカイブ</div>
+        <a class="video-link-btn" href="https://youtu.be/MZKT0wd3IGg" target="_blank" style="background:#4a3fba;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" data-vcat="pro-archive">
+      <div class="video-thumb-wrap yt-lite" data-videoid="bvYXwexBGgA" data-title="20260405 プロコース講義３アーカイブ" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/bvYXwexBGgA/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/bvYXwexBGgA/mqdefault.jpg'" alt="20260405 プロコース講義３アーカイブ" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;top:8px;left:8px;background:rgba(74,63,186,0.9);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">Pro講義３</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));font-size:11px;color:#fff;line-height:1.4;">20260405 プロコース講義３アーカイブ</div>
+      </div>
+      <div class="video-info">
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <div class="video-badge" style="background:#f0eef8;color:#4a3fba;">Pro講義３</div>
+          <div style="font-size:10px;color:var(--text3);padding-top:3px;">2026年04月05日収録</div>
+        </div>
+        <div class="video-title">子どもの歩き方と発育の学校　プロコース講義３アーカイブ</div>
+        <a class="video-link-btn" href="https://youtu.be/bvYXwexBGgA" target="_blank" style="background:#4a3fba;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" data-vcat="pro-archive">
+      <div class="video-thumb-wrap yt-lite" data-videoid="H3xCKwzNIdQ" data-title="20260422 プロコース講義４アーカイブ" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/H3xCKwzNIdQ/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/H3xCKwzNIdQ/mqdefault.jpg'" alt="20260422 プロコース講義４アーカイブ" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;top:8px;left:8px;background:rgba(74,63,186,0.9);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">Pro講義４</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));font-size:11px;color:#fff;line-height:1.4;">20260422 プロコース講義４アーカイブ</div>
+      </div>
+      <div class="video-info">
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <div class="video-badge" style="background:#f0eef8;color:#4a3fba;">Pro講義４</div>
+          <div style="font-size:10px;color:var(--text3);padding-top:3px;">2026年04月22日収録</div>
+        </div>
+        <div class="video-title">子どもの歩き方と発育の学校　プロコース講義４アーカイブ</div>
+        <a class="video-link-btn" href="https://youtu.be/H3xCKwzNIdQ" target="_blank" style="background:#4a3fba;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" data-vcat="pro-archive">
+      <div class="video-thumb-wrap yt-lite" data-videoid="s0It9oHLRSo" data-title="20260510 プロコース講義５アーカイブ" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/s0It9oHLRSo/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/s0It9oHLRSo/mqdefault.jpg'" alt="20260510 プロコース講義５アーカイブ" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;top:8px;left:8px;background:rgba(74,63,186,0.9);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;">Pro講義５</div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.6));font-size:11px;color:#fff;line-height:1.4;">20260510 プロコース講義５アーカイブ</div>
+      </div>
+      <div class="video-info">
+        <div style="display:flex;gap:6px;margin-bottom:6px;">
+          <div class="video-badge" style="background:#f0eef8;color:#4a3fba;">Pro講義５</div>
+          <div style="font-size:10px;color:var(--text3);padding-top:3px;">2026年05月10日収録</div>
+        </div>
+        <div class="video-title">子どもの歩き方と発育の学校　プロコース講義５アーカイブ</div>
+        <a class="video-link-btn" href="https://youtu.be/s0It9oHLRSo" target="_blank" style="background:#4a3fba;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint-box" style="margin-top:1.5rem;border-color:#c5c0f0;">
+    <strong>活用ヒント：</strong>「プロコース」タブの講座マップでタイムスタンプを確認してから該当の動画を開くと、症例の流れを効率よく復習できます。
   </div>
 </section>
 
@@ -1623,6 +1746,45 @@ function filterVideo(cat, btn) {
 }
 
 
+
+// ── PRO ARCHIVE TAB ──
+function checkProArchivePw() {
+  const val = document.getElementById('pro-archive-pw-input').value;
+  if (val === PRO_PASSWORD) {
+    sessionStorage.setItem(PRO_KEY, '1');
+    document.getElementById('pro-archive-gate').style.display = 'none';
+    document.getElementById('pro-archive-tab-btn').classList.add('unlocked');
+    document.getElementById('pro-archive-tab-btn').textContent = '⭐ Proアーカイブ';
+  } else {
+    document.getElementById('pro-archive-pw-error').textContent = 'パスワードが違います。もう一度お試しください。';
+    document.getElementById('pro-archive-pw-input').value = '';
+  }
+}
+
+function showProArchiveTab(btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-pro-archive').classList.add('active');
+  btn.classList.add('active');
+  if (sessionStorage.getItem(PRO_KEY) !== '1') {
+    document.getElementById('pro-archive-gate').style.display = 'flex';
+    setTimeout(() => document.getElementById('pro-archive-pw-input').focus(), 100);
+  } else {
+    document.getElementById('pro-archive-gate').style.display = 'none';
+  }
+}
+
+// Auto-unlock pro archive if already authenticated (deferred)
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof PRO_KEY !== 'undefined' && sessionStorage.getItem(PRO_KEY) === '1') {
+    const proArchiveBtn = document.getElementById('pro-archive-tab-btn');
+    if (proArchiveBtn) {
+      proArchiveBtn.classList.add('unlocked');
+      proArchiveBtn.textContent = '⭐ Proアーカイブ';
+    }
+  }
+});
+
 // ── PRO TAB PASSWORD ──
 const PRO_PASSWORD = 'WGKPRO2026';
 const PRO_KEY = 'wgk_pro_auth';
@@ -1659,14 +1821,16 @@ function toggleProCard(card) {
   card.classList.toggle('open', !isOpen);
 }
 
-// Auto-unlock if already authenticated
-if (sessionStorage.getItem(PRO_KEY) === '1') {
-  const proBtn = document.getElementById('pro-tab-btn');
-  if (proBtn) {
-    proBtn.classList.add('unlocked');
-    proBtn.textContent = '⭐ プロコース';
+// Auto-unlock if already authenticated (deferred)
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof PRO_KEY !== 'undefined' && sessionStorage.getItem(PRO_KEY) === '1') {
+    const proBtn = document.getElementById('pro-tab-btn');
+    if (proBtn) {
+      proBtn.classList.add('unlocked');
+      proBtn.textContent = '⭐ プロコース';
+    }
   }
-}
+});
 
 // ── init ──
 document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
