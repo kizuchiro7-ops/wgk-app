@@ -1933,6 +1933,7 @@ function showBizProTab(btn) {
 
 // ── CASE TAB ──
 const CASE_KEY = 'wgk_cases';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwFo0wt9Gxc5DH1sDdyKAqnyP1KcrGeXmIn_DIal3BholZUACpgkqxUIGjmLJ_eQYb8fQ/exec';
 
 function checkCasePw() {
   const val = document.getElementById('case-pw-input').value;
@@ -1995,11 +1996,45 @@ function saveCaseRecord() {
     photo3: document.getElementById('case-photo3').value,
     comment: document.getElementById('case-comment').value,
   };
+
+  // ① ローカルに保存（今まで通り）
   const records = JSON.parse(localStorage.getItem(CASE_KEY) || '[]');
   records.unshift(entry);
   localStorage.setItem(CASE_KEY, JSON.stringify(records));
   renderCaseSaved();
-  showToast();
+
+  // ② スプレッドシートにも送信
+  const btn = document.querySelector('#tab-case .btn-save');
+  const origText = btn.textContent;
+  btn.textContent = '送信中...';
+  btn.disabled = true;
+
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(entry)
+  })
+  .then(() => {
+    btn.textContent = '✅ 保存・送信しました！';
+    btn.style.background = '#0f7a5a';
+    setTimeout(() => {
+      btn.textContent = origText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 2500);
+    showToast();
+  })
+  .catch(() => {
+    btn.textContent = '⚠️ ローカル保存済み（送信失敗）';
+    btn.style.background = '#854F0B';
+    setTimeout(() => {
+      btn.textContent = origText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+    showToast();
+  });
 }
 
 function clearCaseForm() {
@@ -2683,8 +2718,20 @@ document.getElementById('videoLink').addEventListener('input', function() {
 
   <!-- Saved list -->
   <div class="saved-list" style="margin-top:1.5rem;">
-    <div class="saved-title">保存した実践事例</div>
+    <div class="saved-title">保存した実践事例（このデバイス）</div>
     <div id="case-saved-entries"></div>
+  </div>
+
+  <!-- 全員の結果を見るボタン -->
+  <div style="margin-top:1.5rem;padding:16px;background:var(--bg3);border-radius:var(--radius);text-align:center;">
+    <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;">📊 全講師の実践事例を集計シートで確認</div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:12px;">「この事例を保存する」を押すと自動的にスプレッドシートに記録されます</div>
+    <a id="sheet-link" href="https://docs.google.com/spreadsheets/d/1IJRLZpKOoF3TMh6tYNgNy_g6I32d4l3-Nkn5lEgNZ4w/edit?gid=0#gid=0" target="_blank"
+      style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:#993C1D;color:#fff;border-radius:var(--radius-sm);font-size:13px;font-weight:500;text-decoration:none;transition:opacity .15s;"
+      onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      📊 全員の結果を見る ↗
+    </a>
+    <div style="font-size:10px;color:var(--text3);margin-top:8px;">※ Googleスプレッドシートが開きます</div>
   </div>
 
 </section>
