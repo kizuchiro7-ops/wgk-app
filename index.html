@@ -2009,11 +2009,10 @@ function saveCaseRecord() {
   btn.textContent = '送信中...';
   btn.disabled = true;
 
-  fetch(GAS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(entry)
+  const gasUrl = GAS_URL + '?data=' + encodeURIComponent(JSON.stringify(entry));
+  fetch(gasUrl, {
+    method: 'GET',
+    mode: 'no-cors'
   })
   .then(() => {
     btn.textContent = '✅ 保存・送信しました！';
