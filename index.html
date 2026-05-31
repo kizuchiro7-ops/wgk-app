@@ -436,6 +436,28 @@ nav::-webkit-scrollbar { display: none; }
   transition: opacity .15s;
 }
 .biz-btn:hover { opacity: .85; }
+
+/* ── CASE TAB ── */
+#tab-case .page-header h1 { color: #993C1D; }
+.case-form-section { margin-bottom: 1.4rem; }
+.case-form-section .section-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin-bottom: .6rem; }
+.vas-wrap { margin-bottom: 12px; }
+.vas-label-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); margin-top: 4px; }
+.vas-slider { width: 100%; accent-color: #993C1D; }
+.vas-val { font-size: 13px; font-weight: 500; color: #993C1D; text-align: center; margin-top: 2px; }
+.tag-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-btn { font-size: 12px; padding: 5px 11px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg2); color: var(--text2); cursor: pointer; transition: all .12s; }
+.tag-btn.on { background: #993C1D; color: #fff; border-color: #993C1D; }
+.case-saved-entry { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; }
+.case-saved-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.case-saved-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.case-saved-date { font-size: 11px; color: var(--text3); }
+.case-saved-body { font-size: 12px; color: var(--text2); line-height: 1.7; }
+.vas-bar-wrap { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.vas-bar-bg { flex: 1; height: 10px; background: var(--bg3); border-radius: 5px; overflow: hidden; position: relative; }
+.vas-bar-fill { height: 100%; border-radius: 5px; }
+.vas-bar-label { font-size: 11px; color: var(--text3); min-width: 80px; }
+.vas-bar-score { font-size: 11px; font-weight: 500; min-width: 30px; text-align: right; }
 </style>
 </head>
 <body>
@@ -519,6 +541,7 @@ nav::-webkit-scrollbar { display: none; }
     <button class="nav-tab" onclick="showTab('record',this)">実践記録</button>
     <button class="nav-tab nav-tab-pro" onclick="showProTab(this)" id="pro-tab-btn">🔒 プロコース</button>
     <button class="nav-tab nav-tab-pro" onclick="showProArchiveTab(this)" id="pro-archive-tab-btn">🔒 Proアーカイブ</button>
+    <button class="nav-tab nav-tab-pro" onclick="showCaseTab(this)" id="case-tab-btn">🔒 講師実践事例</button>
     <button class="nav-tab nav-tab-biz" onclick="showBizProTab(this)" id="biz-tab-btn">💼 ビジネススキル</button>
   </nav>
 </header>
@@ -1907,6 +1930,158 @@ function showBizProTab(btn) {
   }
 }
 
+
+// ── CASE TAB ──
+const CASE_KEY = 'wgk_cases';
+
+function checkCasePw() {
+  const val = document.getElementById('case-pw-input').value;
+  if (val === PRO_PASSWORD) {
+    sessionStorage.setItem(PRO_KEY, '1');
+    document.getElementById('case-gate').style.display = 'none';
+    document.getElementById('case-tab-btn').classList.add('unlocked');
+  } else {
+    document.getElementById('case-pw-error').textContent = 'パスワードが違います。';
+    document.getElementById('case-pw-input').value = '';
+  }
+}
+
+function showCaseTab(btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-case').classList.add('active');
+  btn.classList.add('active');
+  if (sessionStorage.getItem(PRO_KEY) !== '1') {
+    document.getElementById('case-gate').style.display = 'flex';
+    setTimeout(() => document.getElementById('case-pw-input').focus(), 100);
+  } else {
+    document.getElementById('case-gate').style.display = 'none';
+  }
+}
+
+function toggleTag(btn) {
+  btn.classList.toggle('on');
+}
+
+function getSelectedTags(containerId) {
+  return [...document.querySelectorAll('#' + containerId + ' .tag-btn.on')].map(b => b.textContent);
+}
+
+function saveCaseRecord() {
+  const entry = {
+    id: Date.now(),
+    date: document.getElementById('case-date').value || new Date().toLocaleDateString('ja-JP'),
+    name: document.getElementById('case-name').value,
+    course: document.getElementById('case-course').value,
+    coursetype: document.getElementById('case-coursetype').value,
+    area: document.getElementById('case-area').value,
+    childAge: document.getElementById('case-child-age').value,
+    concerns: getSelectedTags('case-concerns'),
+    concernOther: document.getElementById('case-concern-other').value,
+    period: document.getElementById('case-period').value,
+    freq: document.getElementById('case-freq').value,
+    works: getSelectedTags('case-works'),
+    detail: document.getElementById('case-detail').value,
+    vas: {
+      walkBefore: document.getElementById('vas-walk-before').value,
+      walkAfter: document.getElementById('vas-walk-after').value,
+      symBefore: document.getElementById('vas-sym-before').value,
+      symAfter: document.getElementById('vas-sym-after').value,
+      moodBefore: document.getElementById('vas-mood-before').value,
+      moodAfter: document.getElementById('vas-mood-after').value,
+    },
+    photo1: document.getElementById('case-photo1').value,
+    photo2: document.getElementById('case-photo2').value,
+    photo3: document.getElementById('case-photo3').value,
+    comment: document.getElementById('case-comment').value,
+  };
+  const records = JSON.parse(localStorage.getItem(CASE_KEY) || '[]');
+  records.unshift(entry);
+  localStorage.setItem(CASE_KEY, JSON.stringify(records));
+  renderCaseSaved();
+  showToast();
+}
+
+function clearCaseForm() {
+  ['case-name','case-area','case-child-age','case-concern-other','case-period','case-detail','case-photo1','case-photo2','case-photo3','case-comment'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  ['case-course','case-coursetype','case-freq'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.querySelectorAll('#case-concerns .tag-btn, #case-works .tag-btn').forEach(b => b.classList.remove('on'));
+  ['vas-walk-before','vas-walk-after','vas-sym-before','vas-sym-after','vas-mood-before','vas-mood-after'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = 0; document.getElementById(id+'-val').textContent = '0'; }
+  });
+  document.getElementById('case-date').value = new Date().toISOString().split('T')[0];
+}
+
+function deleteCaseRecord(id) {
+  const records = JSON.parse(localStorage.getItem(CASE_KEY) || '[]').filter(r => r.id !== id);
+  localStorage.setItem(CASE_KEY, JSON.stringify(records));
+  renderCaseSaved();
+}
+
+function vasBar(label, before, after) {
+  const pctB = (before/10*100).toFixed(0);
+  const pctA = (after/10*100).toFixed(0);
+  const colorB = '#e8c040';
+  const colorA = '#0f7a5a';
+  return `<div style="margin-bottom:6px;">
+    <div style="font-size:11px;color:var(--text2);margin-bottom:2px;">${label}</div>
+    <div class="vas-bar-wrap"><span class="vas-bar-label" style="font-size:10px;color:var(--text3);">Before</span><div class="vas-bar-bg"><div class="vas-bar-fill" style="width:${pctB}%;background:${colorB};"></div></div><span class="vas-bar-score" style="color:${colorB};">${before}</span></div>
+    <div class="vas-bar-wrap"><span class="vas-bar-label" style="font-size:10px;color:var(--text3);">After　</span><div class="vas-bar-bg"><div class="vas-bar-fill" style="width:${pctA}%;background:${colorA};"></div></div><span class="vas-bar-score" style="color:${colorA};">${after}</span></div>
+  </div>`;
+}
+
+function renderCaseSaved() {
+  const records = JSON.parse(localStorage.getItem(CASE_KEY) || '[]');
+  const container = document.getElementById('case-saved-entries');
+  if (!records.length) {
+    container.innerHTML = '<div class="empty-state">まだ事例がありません</div>';
+    return;
+  }
+  container.innerHTML = records.map(r => `
+    <div class="case-saved-entry">
+      <div class="case-saved-header">
+        <div>
+          <div class="case-saved-name">${r.name || '講師名未入力'} <span style="font-size:11px;color:var(--text3);">${r.course || ''} ${r.coursetype || ''}</span></div>
+          <div style="font-size:11px;color:var(--text3);">${r.area || ''} ／ お子さん ${r.childAge || ''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="case-saved-date">${r.date}</span>
+          <button class="del-btn" onclick="deleteCaseRecord(${r.id})">✕</button>
+        </div>
+      </div>
+      <div class="case-saved-body">
+        ${r.concerns && r.concerns.length ? '<div style="margin-bottom:4px;">🔍 <strong>お悩み：</strong>' + r.concerns.join('・') + (r.concernOther ? '・'+r.concernOther : '') + '</div>' : ''}
+        ${r.works && r.works.length ? '<div style="margin-bottom:4px;">✅ <strong>ワーク：</strong>' + r.works.join('・') + '</div>' : ''}
+        ${r.period || r.freq ? '<div style="margin-bottom:4px;">📅 <strong>期間：</strong>' + (r.period||'') + '　<strong>頻度：</strong>' + (r.freq||'') + '</div>' : ''}
+        ${r.detail ? '<div style="margin-bottom:6px;">📝 ' + r.detail + '</div>' : ''}
+        ${r.vas ? vasBar('①歩き方・姿勢', r.vas.walkBefore, r.vas.walkAfter) + vasBar('②症状・お悩み', r.vas.symBefore, r.vas.symAfter) + vasBar('③機嫌・笑顔', r.vas.moodBefore, r.vas.moodAfter) : ''}
+        ${r.photo1 ? '<div style="margin-top:6px;"><a href="'+r.photo1+'" target="_blank" style="font-size:11px;color:#0f7a5a;">📷 Before画像・動画 ↗</a></div>' : ''}
+        ${r.photo2 ? '<div><a href="'+r.photo2+'" target="_blank" style="font-size:11px;color:#0f7a5a;">📷 After画像・動画 ↗</a></div>' : ''}
+        ${r.photo3 ? '<div><a href="'+r.photo3+'" target="_blank" style="font-size:11px;color:#0f7a5a;">📷 その他 ↗</a></div>' : ''}
+        ${r.comment ? '<div style="margin-top:6px;padding:8px;background:var(--bg3);border-radius:6px;font-size:12px;">💬 ' + r.comment + '</div>' : ''}
+      </div>
+    </div>`).join('');
+}
+
+// Auto-unlock case tab if already authenticated
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof PRO_KEY !== 'undefined' && sessionStorage.getItem(PRO_KEY) === '1') {
+    const caseBtn = document.getElementById('case-tab-btn');
+    if (caseBtn) caseBtn.classList.add('unlocked');
+    const caseGate = document.getElementById('case-gate');
+    if (caseGate) caseGate.style.display = 'none';
+  }
+  document.getElementById('case-date').value = new Date().toISOString().split('T')[0];
+  renderCaseSaved();
+});
+
 // ── init ──
 document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
 renderSaved();
@@ -2291,6 +2466,225 @@ document.getElementById('videoLink').addEventListener('input', function() {
         🤖 AIを使ってみる ↗
       </a>
     </div>
+  </div>
+
+</section>
+
+<!-- ════════════════ TAB: CASE ════════════════ -->
+<section class="section" id="tab-case">
+  <div id="case-gate" class="pro-gate">
+    <div class="pro-gate-box">
+      <div class="pro-phase">Pro Course</div>
+      <div style="font-size:22px;margin-bottom:8px;">📋</div>
+      <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:6px;">講師実践事例</div>
+      <div style="font-size:12px;color:#9a9790;margin-bottom:20px;">プロコース受講生のみアクセスできます</div>
+      <input type="password" id="case-pw-input" placeholder="プロコースパスワードを入力"
+        style="width:100%;padding:11px 13px;border:1px solid #c5c0f0;border-radius:10px;font-size:13px;font-family:inherit;color:#1a1917;outline:none;box-sizing:border-box;margin-bottom:8px;"
+        onkeydown="if(event.key==='Enter')checkCasePw()">
+      <div id="case-pw-error" style="font-size:11px;color:#993C1D;min-height:16px;margin-bottom:8px;"></div>
+      <button onclick="checkCasePw()"
+        style="width:100%;padding:11px;background:#993C1D;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;">
+        講師実践事例を開く
+      </button>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1>📋 講師実践事例</h1>
+    <p>実践記録を入力・保存して、症例データを蓄積しましょう。</p>
+  </div>
+
+  <!-- ── FORM ── -->
+  <div class="case-form-section">
+    <div class="section-title">講師情報</div>
+    <div class="record-meta">
+      <div>
+        <div class="field-label">講師氏名</div>
+        <input class="field-input" type="text" id="case-name" placeholder="例：山田 花子">
+      </div>
+      <div>
+        <div class="field-label">期・コース</div>
+        <select class="field-input" id="case-course">
+          <option value="">選択してください</option>
+          <option value="0期">0期</option>
+          <option value="1期">1期</option>
+          <option value="2期">2期</option>
+          <option value="3期">3期</option>
+        </select>
+      </div>
+      <div>
+        <div class="field-label">コース種別</div>
+        <select class="field-input" id="case-coursetype">
+          <option value="">選択してください</option>
+          <option value="ママドクターコース">ママドクターコース</option>
+          <option value="ママアドバイザーコース">ママアドバイザーコース</option>
+        </select>
+      </div>
+      <div>
+        <div class="field-label">活動地域</div>
+        <input class="field-input" type="text" id="case-area" placeholder="例：東京都・大阪府">
+      </div>
+    </div>
+  </div>
+
+  <div class="case-form-section">
+    <div class="section-title">お子さんの情報</div>
+    <div class="record-meta">
+      <div>
+        <div class="field-label">年齢・月齢</div>
+        <input class="field-input" type="text" id="case-child-age" placeholder="例：4歳3ヶ月">
+      </div>
+      <div>
+        <div class="field-label">記録日</div>
+        <input class="field-input" type="date" id="case-date">
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="field-label" style="margin-bottom:6px;">お子さんのお悩み（複数選択可）</div>
+      <div class="tag-grid" id="case-concerns">
+        <button class="tag-btn" onclick="toggleTag(this)">つま先歩き</button>
+        <button class="tag-btn" onclick="toggleTag(this)">内股歩き</button>
+        <button class="tag-btn" onclick="toggleTag(this)">転びやすい</button>
+        <button class="tag-btn" onclick="toggleTag(this)">姿勢が悪い</button>
+        <button class="tag-btn" onclick="toggleTag(this)">集中力がない</button>
+        <button class="tag-btn" onclick="toggleTag(this)">夜尿症</button>
+        <button class="tag-btn" onclick="toggleTag(this)">お口ポカン</button>
+        <button class="tag-btn" onclick="toggleTag(this)">感覚過敏</button>
+        <button class="tag-btn" onclick="toggleTag(this)">音・光に敏感</button>
+        <button class="tag-btn" onclick="toggleTag(this)">シーバー病</button>
+        <button class="tag-btn" onclick="toggleTag(this)">側弯症</button>
+        <button class="tag-btn" onclick="toggleTag(this)">鉛筆の持ち方</button>
+        <button class="tag-btn" onclick="toggleTag(this)">字が乱れる</button>
+        <button class="tag-btn" onclick="toggleTag(this)">よく転ぶ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">低緊張</button>
+        <button class="tag-btn" onclick="toggleTag(this)">言葉の遅れ</button>
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="field-label" style="margin-bottom:4px;">その他のお悩み</div>
+      <input class="field-input" type="text" id="case-concern-other" placeholder="例：右足だけ外側に向く">
+    </div>
+  </div>
+
+  <div class="case-form-section">
+    <div class="section-title">実践内容</div>
+    <div class="record-meta">
+      <div>
+        <div class="field-label">実践期間</div>
+        <input class="field-input" type="text" id="case-period" placeholder="例：3ヶ月">
+      </div>
+      <div>
+        <div class="field-label">頻度</div>
+        <select class="field-input" id="case-freq">
+          <option value="">選択してください</option>
+          <option value="毎日">毎日</option>
+          <option value="週5〜6日">週5〜6日</option>
+          <option value="週3〜4日">週3〜4日</option>
+          <option value="週1〜2日">週1〜2日</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="field-label" style="margin-bottom:6px;">実践したワーク（複数選択可）</div>
+      <div class="tag-grid" id="case-works">
+        <button class="tag-btn" onclick="toggleTag(this)">ハミング呼吸</button>
+        <button class="tag-btn" onclick="toggleTag(this)">RMT（膝ゆらし）</button>
+        <button class="tag-btn" onclick="toggleTag(this)">スーパーマンのポーズ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">スターフィッシュ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">首の等尺性収縮</button>
+        <button class="tag-btn" onclick="toggleTag(this)">キッズスクワット</button>
+        <button class="tag-btn" onclick="toggleTag(this)">足首4パターン</button>
+        <button class="tag-btn" onclick="toggleTag(this)">足首セラバンドトレ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">バランスディスク</button>
+        <button class="tag-btn" onclick="toggleTag(this)">VORトレーニング</button>
+        <button class="tag-btn" onclick="toggleTag(this)">ビジョントレーニング</button>
+        <button class="tag-btn" onclick="toggleTag(this)">背中ウォーク</button>
+        <button class="tag-btn" onclick="toggleTag(this)">背中マッサージ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">足裏ブラッシング</button>
+        <button class="tag-btn" onclick="toggleTag(this)">唇シール</button>
+        <button class="tag-btn" onclick="toggleTag(this)">ビー玉・豆つまみ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">裸足遊び</button>
+        <button class="tag-btn" onclick="toggleTag(this)">くま歩きトレ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">坂道ダッシュ</button>
+        <button class="tag-btn" onclick="toggleTag(this)">階段ダッシュ</button>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <div class="field-label" style="margin-bottom:4px;">具体的に行なったこと・特記事項</div>
+      <textarea class="memo-area" id="case-detail" placeholder="例：毎晩お風呂後にハミング呼吸3回＋背中マッサージ5分。最初は嫌がっていたが2週間で慣れた。"></textarea>
+    </div>
+  </div>
+
+  <div class="case-form-section">
+    <div class="section-title">VAS評価（0=かなり辛い　／　10=かなり改善）</div>
+    <div id="vas-items">
+      <div class="vas-wrap">
+        <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px;">①歩き方・姿勢</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">Before</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-walk-before" oninput="document.getElementById('vas-walk-before-val').textContent=this.value">
+          <span id="vas-walk-before-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:4px;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">After　</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-walk-after" oninput="document.getElementById('vas-walk-after-val').textContent=this.value">
+          <span id="vas-walk-after-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div class="vas-label-row"><span>0 かなり辛い</span><span>10 かなり改善</span></div>
+      </div>
+      <div class="vas-wrap">
+        <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px;">②症状・お悩み全般</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">Before</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-sym-before" oninput="document.getElementById('vas-sym-before-val').textContent=this.value">
+          <span id="vas-sym-before-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:4px;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">After　</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-sym-after" oninput="document.getElementById('vas-sym-after-val').textContent=this.value">
+          <span id="vas-sym-after-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div class="vas-label-row"><span>0 かなり辛い</span><span>10 かなり改善</span></div>
+      </div>
+      <div class="vas-wrap">
+        <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px;">③お子さんの機嫌・笑顔</div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">Before</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-mood-before" oninput="document.getElementById('vas-mood-before-val').textContent=this.value">
+          <span id="vas-mood-before-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:4px;">
+          <span style="font-size:11px;color:var(--text3);flex-shrink:0;">After　</span>
+          <input type="range" class="vas-slider" min="0" max="10" value="0" id="vas-mood-after" oninput="document.getElementById('vas-mood-after-val').textContent=this.value">
+          <span id="vas-mood-after-val" class="vas-val" style="min-width:20px;">0</span>
+        </div>
+        <div class="vas-label-row"><span>0 かなり辛い</span><span>10 かなり改善</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-form-section">
+    <div class="section-title">📹 実践画像・動画（Googleフォトリンク）</div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">Googleフォトで画像・動画を開く → 「共有」→「リンクをコピー」して貼り付けてください</div>
+    <input class="field-input" type="url" id="case-photo1" placeholder="Before の画像・動画リンク（Googleフォト）" style="width:100%;margin-bottom:6px;">
+    <input class="field-input" type="url" id="case-photo2" placeholder="After の画像・動画リンク（Googleフォト）" style="width:100%;margin-bottom:6px;">
+    <input class="field-input" type="url" id="case-photo3" placeholder="その他（任意）" style="width:100%;">
+  </div>
+
+  <div class="case-form-section">
+    <div class="section-title">コメント・総評</div>
+    <textarea class="memo-area" id="case-comment" placeholder="例：ご本人とお母さんの頑張りで見事に改善。ハミング呼吸が特に効果的でした。"></textarea>
+  </div>
+
+  <div class="save-row">
+    <button class="btn-save" style="background:#993C1D;" onclick="saveCaseRecord()">この事例を保存する</button>
+    <button class="btn-clear" onclick="clearCaseForm()">クリア</button>
+  </div>
+
+  <!-- Saved list -->
+  <div class="saved-list" style="margin-top:1.5rem;">
+    <div class="saved-title">保存した実践事例</div>
+    <div id="case-saved-entries"></div>
   </div>
 
 </section>
