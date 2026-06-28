@@ -458,6 +458,9 @@ nav::-webkit-scrollbar { display: none; }
 .vas-bar-fill { height: 100%; border-radius: 5px; }
 .vas-bar-label { font-size: 11px; color: var(--text3); min-width: 80px; }
 .vas-bar-score { font-size: 11px; font-weight: 500; min-width: 30px; text-align: right; }
+
+/* ── KODOMO TAB ── */
+#tab-kodomo .page-header h1 { color: #0f7a5a; }
 </style>
 </head>
 <body>
@@ -538,6 +541,7 @@ nav::-webkit-scrollbar { display: none; }
     <button class="nav-tab" onclick="showTab('archive',this)">📹 アーカイブ</button>
     <button class="nav-tab" onclick="showTab('check',this)">症状チェック</button>
     <button class="nav-tab" onclick="showTab('video',this)">実践動画</button>
+    <button class="nav-tab" onclick="showTab('kodomo',this)">🎬 こども解説</button>
     <button class="nav-tab" onclick="showTab('record',this)">実践記録</button>
     <button class="nav-tab nav-tab-pro" onclick="showProTab(this)" id="pro-tab-btn">🔒 プロコース</button>
     <button class="nav-tab nav-tab-pro" onclick="showProArchiveTab(this)" id="pro-archive-tab-btn">🔒 Proアーカイブ</button>
@@ -545,6 +549,152 @@ nav::-webkit-scrollbar { display: none; }
     <button class="nav-tab nav-tab-biz" onclick="showBizProTab(this)" id="biz-tab-btn">💼 ビジネススキル</button>
   </nav>
 </header>
+
+<!-- ════════════════ TAB: KODOMO ════════════════ -->
+<section class="section" id="tab-kodomo">
+  <div class="page-header">
+    <h1>🎬 こども解説動画</h1>
+    <p>お子さんの発育・発達をわかりやすく解説した動画です。ぜひご家族でご覧ください。</p>
+  </div>
+
+  <div style="max-width:700px;margin:0 auto;">
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="NUCaPXIzzWM" data-title="赤ちゃんの抱っこ：丸める vs 丸めない" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/NUCaPXIzzWM/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/NUCaPXIzzWM/mqdefault.jpg'" alt="赤ちゃんの抱っこ：丸める vs 丸めない" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">赤ちゃんの抱っこ：丸める vs 丸めない</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">赤ちゃんの抱っこ：丸める vs 丸めない</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">丸める抱っこのメリット・デメリット</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">丸めない抱っこのメリット・デメリット</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">幼児の時の背骨への影響</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">どう抱っこすればいいのか！</span></div>
+        <a href="https://youtu.be/NUCaPXIzzWM" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="eka-3qEOQEs" data-title="隠された繋がり：歩き方と原始反射" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/eka-3qEOQEs/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/eka-3qEOQEs/mqdefault.jpg'" alt="隠された繋がり：歩き方と原始反射" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">隠された繋がり：歩き方と原始反射</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">隠された繋がり：歩き方と原始反射</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">脳幹について</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">原始反射について</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">恐怖と防御の反射</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">ハミング呼吸・モロー反射・屈曲反射</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">フィードフォワード反射</span></div>
+        <a href="https://youtu.be/eka-3qEOQEs" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="VwP142dJqYI" data-title="緊張性迷路反射（TLR）の謎を解き明かす" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/VwP142dJqYI/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/VwP142dJqYI/mqdefault.jpg'" alt="緊張性迷路反射（TLR）の謎を解き明かす" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">緊張性迷路反射（TLR）の謎を解き明かす</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">緊張性迷路反射（TLR）の謎を解き明かす</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">残存するサイン</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">なぜ後に倒れるのか</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">下半身へのドミノ効果</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">成長と筋肉のミスマッチ</span></div>
+        <a href="https://youtu.be/VwP142dJqYI" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="f7lQid6T5HU" data-title="最強のねむり：秘密の魔法工場（成長ホルモンと睡眠）" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/f7lQid6T5HU/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/f7lQid6T5HU/mqdefault.jpg'" alt="最強のねむり：秘密の魔法工場（成長ホルモンと睡眠）" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">最強のねむり：秘密の魔法工場（成長ホルモンと睡眠）</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">最強のねむり：秘密の魔法工場（成長ホルモンと睡眠）</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">成長ホルモンの重要性</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">子どもの身体の工事チーム</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">睡眠と成長</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">睡眠時間（海外との比較）</span></div>
+        <a href="https://youtu.be/f7lQid6T5HU" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="0np_BleCvLI" data-title="子どもの発達に隠された土台" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/0np_BleCvLI/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0np_BleCvLI/mqdefault.jpg'" alt="子どもの発達に隠された土台" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">子どもの発達に隠された土台</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">子どもの発達に隠された土台</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">子どもの悩みの本当の理由と脳幹</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">発達の土台『原始反射』</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">原始反射の残存について</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">おねしょと原始反射・安心できる環境</span></div>
+        <a href="https://youtu.be/0np_BleCvLI" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="7BJQPnzH8b8" data-title="2歳児の発達状況を見る上で大切なこと" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/7BJQPnzH8b8/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/7BJQPnzH8b8/mqdefault.jpg'" alt="2歳児の発達状況を見る上で大切なこと" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">2歳児の発達状況を見る上で大切なこと</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">2歳児の発達状況を見る上で大切なこと</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">マイルストーンについて</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">ぽっこりお腹の正体</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">2歳児の姿勢と原始反射</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">性格と感覚過敏について</span></div>
+        <a href="https://youtu.be/7BJQPnzH8b8" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="j7iyXmxFeLE" data-title="日本の子どもたちの歩行" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/j7iyXmxFeLE/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/j7iyXmxFeLE/mqdefault.jpg'" alt="日本の子どもたちの歩行" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">日本の子どもたちの歩行</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">日本の子どもたちの歩行</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">子どもたちの歩行パラドックス</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">ピッチ型歩行について</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">ランドセルを背負う子どもたちの身体</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">日常の環境要因</span></div>
+        <a href="https://youtu.be/j7iyXmxFeLE" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="5bi4Mv3UqVo" data-title="日常の遊びを通じた感覚統合" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/5bi4Mv3UqVo/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/5bi4Mv3UqVo/mqdefault.jpg'" alt="日常の遊びを通じた感覚統合" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">日常の遊びを通じた感覚統合</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">日常の遊びを通じた感覚統合</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">日常の遊びと感覚統合のつながり</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">感覚を育てる遊びの実践</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">親子でできる感覚統合アプローチ</span></div>
+        <a href="https://youtu.be/5bi4Mv3UqVo" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+    <div class="video-card" style="margin-bottom:20px;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);">
+      <div class="video-thumb-wrap yt-lite" data-videoid="dvgtVrwfUH8" data-title="３つの感覚と小脳の働き" onclick="playVideo(this)" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer;background:#1a1917;display:block;">
+        <img src="https://i.ytimg.com/vi/dvgtVrwfUH8/hqdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/dvgtVrwfUH8/mqdefault.jpg'" alt="３つの感覚と小脳の働き" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(255,0,0,0.88);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.65));font-size:12px;color:#fff;line-height:1.4;">３つの感覚と小脳の働き</div>
+      </div>
+      <div style="padding:16px;">
+        <div style="font-size:15px;font-weight:500;color:#1a1917;margin-bottom:4px;">３つの感覚と小脳の働き</div>
+        <div style="font-size:11px;color:#9a9790;margin-bottom:10px;">監修：子どもの歩き方と発育の学校</div>
+        <div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">前庭覚・固有受容覚・触覚の３つの感覚</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">小脳の役割と発達</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">感覚と運動の連携</span></div><div style="display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;"><span style="color:#0f7a5a;font-size:13px;">✅</span><span style="font-size:13px;">バランス能力を育てるために</span></div>
+        <a href="https://youtu.be/dvgtVrwfUH8" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 18px;background:#0f7a5a;color:#fff;border-radius:20px;font-size:12px;font-weight:500;text-decoration:none;">YouTubeで開く ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ════════════════ TAB: ARCHIVE ════════════════ -->
 <section class="section" id="tab-archive">
